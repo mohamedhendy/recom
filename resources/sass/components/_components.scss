@@ -1,0 +1,13 @@
+@import "screen";
+@import "datatable";
+@import "back-button";
+@import "form";
+@import "slot-definitions";
+@import "fields/field.scss";
+@import 'custom';
+
+
+.el-input.is-disabled .el-input__inner
+{
+    color: #4f5154 !important;
+}

@@ -1,0 +1,72 @@
+.page-header {
+    @apply bg-gray-900;
+
+    &__container {
+        @apply flex items-center justify-between px-6 py-3;
+    }
+
+
+    &__logo {
+        @apply text-white;
+    }
+
+    &__logo-title {
+        @apply text-2xl font-bold;
+    }
+
+    &__logo-subtitle {
+        @apply text-sm font-light;
+    }
+
+    &__right-list {
+        @apply flex items-center space-x-6;
+    }
+
+    &__right-list-buttons-area {
+        & a, & button {
+            background-color: white !important;
+            color: #111827 !important
+        }
+    }
+
+    &__lang-selector {
+
+        @apply ml-4;
+        @apply flex items-center space-x-2 text-white hover:text-blue-400;
+    }
+
+    &__lang-selector-link {
+
+        @apply flex items-center space-x-2 text-white hover:text-blue-400;
+    }
+
+    &__lang-selector-icon {
+
+        @apply w-4 h-4;
+    }
+
+
+    &__user-panel-profile-button {
+        @apply flex text-sm transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-200;
+    }
+
+    &__user-panel-profile-image {
+        @apply object-cover w-8 h-8 rounded-full;
+    }
+
+    &__user-panel-username {
+        @apply flex items-center text-sm font-medium text-white transition duration-150 ease-in-out hover:text-gray-200 focus:outline-none focus:text-gray-300 focus:border-gray-300;
+    }
+
+    &__user-panel-username-icon {
+        @apply w-4 h-4 fill-current;
+    }
+
+    &__user-panel-manage {
+        @apply block px-4 py-2 text-xs text-gray-400;
+    }
+
+    &__user-panel-divider {
+        @apply border-t border-gray-100;
+    }
+}

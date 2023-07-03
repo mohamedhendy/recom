@@ -1,0 +1,8 @@
+.slot-definitions {
+    .datatable {
+        &__container,
+        &__pagination {
+            @apply relative;
+        }
+    }
+}

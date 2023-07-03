@@ -1,0 +1,70 @@
+.datatable {
+    @apply flex-1 flex flex-col h-full relative;
+
+    th {
+        @apply sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    &__container {
+        @apply inline-block align-middle flex-1 absolute top-0 left-0 right-0 overflow-y-auto;
+        bottom: #{$datatable-footer-height + $datatable-footer-margin-top};
+
+        @screen sm {
+            @apply pr-6 pl-1;
+        }
+    }
+
+    &__table {
+        @apply divide-y divide-gray-200 relative;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    &__body {
+        @apply w-full;
+    }
+
+    &__row {
+        @apply bg-white divide-y divide-gray-200;
+    }
+
+    &__pagination {
+        @apply flex justify-center absolute bottom-0 left-0 right-7;
+        height: $datatable-footer-height;
+        margin-top: $datatable-footer-margin-top;
+        box-shadow: 0px -4px 10px -8px rgb(0 0 0 / 60%);
+    }
+
+    &__pagination-container {
+        @apply flex space-x-10;
+    }
+
+    &__pagination-item {
+        &__enabled {
+            @apply text-gray-900;
+
+            &:hover {
+                @apply underline;
+            }
+        }
+
+        &__disabled {
+            @apply cursor-not-allowed;
+            @apply text-gray-500;
+        }
+    }
+
+    &__header {
+        @apply justify-center px-2 py-3 text-xs font-medium tracking-wider text-center text-gray-800 uppercase shadow bg-white;
+    }
+
+    &__header-icon {
+        @apply w-6 h-6;
+    }
+
+    &__cell {
+        @apply px-2 font-medium text-center text-gray-900;
+    }
+}

@@ -1,0 +1,63 @@
+.screen {
+    @apply flex flex-col h-full;
+
+    &__header {
+        @apply h-12 flex;
+    }
+
+    &__title {
+        @apply text-2xl font-semibold text-gray-800;
+    }
+
+    &__body {
+        @apply flex flex-col flex-1 mt-auto;
+    }
+
+    &__content {
+        @apply flex-1 relative;
+    }
+
+    &__options {
+        @apply w-full flex items-center justify-between pr-8 pb-6;
+    }
+
+    &__views {
+    }
+
+    &__views-item {
+        @apply font-medium cursor-pointer text-gray-500 pr-8;
+
+        &:hover {
+            @apply underline;
+        }
+
+        &:focus {
+            @apply outline-none;
+        }
+
+        &--active {
+            @apply text-gray-800;
+        }
+    }
+
+    &__statistics,
+    &__meta {
+        @apply flex space-x-8;
+    }
+
+    &__search {
+        @apply block;
+    }
+
+    &__search-input {
+        @apply block w-full px-0.5 border-0 border-b-2 border-gray-400 placeholder-gray-400;
+        &:focus {
+            @apply placeholder-gray-900;
+        }
+
+        &:focus {
+            @apply ring-0 border-black;
+        }
+    }
+
+}

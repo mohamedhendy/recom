@@ -1,0 +1,81 @@
+.page-content {
+    @apply flex relative;
+
+    &__sidebar {
+        @apply flex flex-col sticky bg-gray-100 pb-3;
+        top: $header-height;
+        transition: width 0.2s ease-out;
+        overflow: hidden;
+        height: calc(100vh - #{$header-height});
+        width: $sidebar-width-collapsed;
+        margin-top: $header-height;
+
+        &--expanded {
+            width: $sidebar-width-expanded;
+
+            .page-content {
+                &__sidebar-list-item-label {
+                    @apply opacity-100;
+                    transition-delay: 0.2s;
+                }
+            }
+        }
+    }
+
+    &__sidebar-list {
+        @apply flex flex-col items-start px-3;
+        @apply w-full;
+    }
+
+    &__sidebar-list-item {
+        @apply pr-4 pl-1 text-gray-900 rounded-full cursor-pointer;
+        @apply flex min-w-full;
+        transition: background-color 0.2s ease-out;
+
+        &:hover {
+            @apply text-gray-800 bg-white;
+        }
+    }
+
+    &__sidebar-list-item-icon {
+        @apply p-3;
+        width: 3.15rem;
+        height: 3.15rem;
+    }
+
+    &__sidebar-list-item-label {
+        @apply flex-1 ml-4 flex items-center;
+        @apply opacity-0;
+        transition: opacity 0.1s ease-in;
+    }
+
+    &__deployments--item-icon {
+        @apply p-3;
+        width: 3.15rem;
+        height: 3.15rem;
+        display: inline;
+    }
+
+    &__deployments-item-label {
+
+    }
+
+    &__sidebar-separator {
+        @apply py-1 relative bg-gray-100 w-full;
+
+        &::after {
+            content: "";
+            @apply absolute bg-gray-300;
+            top: 50%;
+            left: 10px;
+            right: 10px;
+            height: 1px;
+        }
+    }
+
+    &__body {
+        @apply flex-1 pl-8 pt-6 pb-2 relative overflow-hidden;
+        height: calc(100vh - #{$header-height});
+        margin-top: $header-height;
+    }
+}

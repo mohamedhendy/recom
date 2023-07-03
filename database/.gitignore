@@ -1,0 +1,7 @@
+*.sqlite
+*.sqlite-journal
+
+if lang == en
+    apply rtl = false;
+else
+    apply rtl = true

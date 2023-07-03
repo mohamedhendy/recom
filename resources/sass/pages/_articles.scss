@@ -1,0 +1,36 @@
+.articles {
+    &__index {
+
+        &__title {
+            @apply text-2xl font-semibold text-gray-800;
+        }
+
+        &__create-article {
+            @apply flex items-center px-4 py-2 space-x-3 text-white bg-gray-900 rounded-full hover:bg-gray-800;
+        }
+
+        &__tb-header {
+         @apply flex items-center justify-between;
+        }
+
+        &__tb-link {
+            @apply block py-2 hover:text-indigo-900;
+        }
+
+        &__tb-options {
+            position: relative;
+        }
+
+        &__tb-icon-options {
+            @apply absolute  z-50 flex flex-col items-center justify-center p-2 rounded shadow bg-gray-50;
+            &__show {
+
+                @apply visible;
+            }
+
+            &__hide {
+                @apply hidden;
+            }
+        }
+    }
+}

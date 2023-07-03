@@ -1,0 +1,266 @@
+<template>
+    <app-layout>
+        <template #header>
+            <h2 class="screen__title">
+                {{ $t("add_documents") }}
+            </h2>
+        </template>
+
+        <template #screen-actions>
+            <button
+                class="flex items-center px-4 py-2 space-x-4 text-white bg-gray-900 rounded"
+                type="button"
+                @click="saveDocuments"
+            >
+                <svg-vue icon="save" class="w-5 h-5"/>
+                <span class="text-sm">{{ $t("upload") }}</span>
+            </button>
+        </template>
+
+        <div class="screen__content">
+            <div class="form">
+                <div class="flex">
+                    <div class="flex flex-col items-center justify-center flex-1">
+                        <select v-model="documentType" class="flex-shrink-0 w-56 h-10">
+                            <option :value="null">
+                                {{ $t("choose_document") }}
+                            </option>
+                            <option
+                                v-for="type in $dataset.document_types"
+                                :key="type"
+                                :value="type"
+                            >
+                                {{ $t(type) }}
+                            </option>
+                        </select>
+
+                        <div class="mt-10">
+                            <div class="flex flex-col mt-8">
+                                <ErrorMessage :error="$page.props.errors[`articles`]"/>
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <tbody
+                                        v-for="(article, index) in articles"
+                                        :key="index"
+                                        class="bg-white divide-y divide-gray-200"
+                                    >
+                                        <tr>
+                                            <td
+                                                class="px-2 py-4 text-sm font-medium text-center text-gray-900"
+                                            >
+                                                <input
+                                                    v-model="article.add_document"
+                                                    class="text-gray-900 rounded"
+                                                    type="checkbox"
+                                                >
+                                            </td>
+                                            <td class="px-6 py-4 font-medium text-gray-900">
+                                                {{ article.name }}
+
+                                                <ErrorMessage :error="$page.props.errors[`articles.${index}.id`]"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1">
+                        <h3 class="text-xl font-medium text-gray-900">
+                            {{ $t("upload_documents") }}
+                        </h3>
+                        <label
+                            class="flex flex-col items-center w-full max-w-lg px-4 py-6 mt-8 tracking-wide text-gray-900 uppercase border border-gray-700 rounded-lg cursor-pointer"
+                            @dragleave="dragleave"
+                            @dragover="dragover"
+                            @drop="drop"
+                        >
+                            <svg-vue icon="upload" class="w-8 h-8"/>
+                            <span class="mt-2 text-base leading-normal">{{
+                                $t("select_a_file")
+                            }}</span>
+                            <input
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                        text/plain, application/pdf, image/*"
+                                class="hidden"
+                                multiple
+                                type="file"
+                                @change="addDocuments"
+                            >
+                        </label>
+                        <ErrorMessage :error="$page.props.errors[`documents`]"/>
+
+                        <table>
+                            <tr
+                                v-for="(document, documentIndex) in documents"
+                                :key="documentIndex"
+                            >
+                                <td
+                                    class="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap"
+                                >
+                                    {{ document.name }}
+                                </td>
+                                <td
+                                    class="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap"
+                                >
+                                    {{ $t(document.type) }}
+                                </td>
+
+                                <td>
+                                    <button @click="deleteDocument(documentIndex)">
+                                        <svg-vue icon="trash" class="w-6 h-6"/>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="text-xl font-medium text-gray-900">
+                        {{ $t("documents") }}
+                    </h3>
+
+                    <div class="flex flex-col mt-8">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-800 uppercase"
+                                        scope="col"
+                                    >
+                                        {{ $t("article") }}
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-800 uppercase"
+                                        scope="col"
+                                    >
+                                        {{ $t("name") }}
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-800 uppercase"
+                                        scope="col"
+                                    >
+                                        {{ $t("type") }}
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-800 uppercase"
+                                        scope="col"
+                                    />
+                                </tr>
+                            </thead>
+                            <tbody
+                                v-for="(article, index) in articles"
+                                :key="index"
+                                class="bg-white divide-y divide-gray-200"
+                            >
+                                <tr
+                                    v-for="(document, documentIndex) in article.documents"
+                                    :key="documentIndex"
+                                >
+                                    <td class="px-6 py-4 font-medium text-gray-900">
+                                        {{ article.name }}
+
+                                        <ErrorMessage :error="$page.props.errors[`articles.${index}.id`]"/>
+                                    </td>
+                                    <td class="px-6 py-4 font-medium text-gray-900">
+                                        {{ document.document.original_name }}
+                                    </td>
+                                    <td class="px-6 py-4 font-medium text-gray-900">
+                                        {{ $t(document.type) }}
+                                    </td>
+                                    <td
+                                        class="flex items-center justify-center gap-2 px-6 py-4 font-medium text-gray-900"
+                                    >
+                                        <a :href="`/files/${document.document_id}/download`"><span>{{ $t("view") }}</span></a>
+                                        <button @click="deleteOldDocument(document.id)">
+                                            <svg-vue icon="trash" class="w-6 h-6"/>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </app-layout>
+</template>
+
+<script>
+import AppLayout from "@/Layouts/AppLayout";
+import DragDropInputMixin from "@/Mixins/DragDropInputMixin";
+import ClosePageUsingEscMixin from "@/Mixins/ClosePageUsingEscMixin";
+import ErrorMessage from "@/Components/Reusable/ErrorMessage";
+
+export default {
+    delimiters: ["${", "}"],
+    components: {
+        AppLayout,
+        ErrorMessage
+    }, // Avoid Twig conflicts
+    mixins: [DragDropInputMixin, ClosePageUsingEscMixin],
+    data() {
+        return {
+            filelist: [],
+            documentType: null,
+            articles: this.$page.props.invoice.articles,
+            documents: [],
+        };
+    },
+    methods: {
+        deleteOldDocument(documentId) {
+            this.$confirm({
+                message: this.$t("are_you_sure"),
+                button: {
+                    no: this.$t("no"),
+                    yes: this.$t("yes"),
+                },
+                /**
+                 * Callback Function
+                 * @param {Boolean} confirm
+                 */
+                callback: (confirm) => {
+                    if (confirm) this.$inertia.delete("/api/documents/" + documentId);
+                },
+            });
+        },
+        saveDocuments() {
+            this.$loading.show({delay: 0, background: "#444"});
+
+            let formData = new FormData();
+
+            for (let articleKey in this.articles) {
+                let article = this.articles[articleKey];
+                if (article.add_document === true) {
+                    formData.append(`articles[${articleKey}][id]`, article.id);
+                    formData.append(
+                        `articles[${articleKey}][documents_upload]`,
+                        article.documents_upload === true
+                    );
+                }
+            }
+
+            for (let documentKey in this.documents) {
+                let document = this.documents[documentKey];
+                formData.append(
+                    `documents[${documentKey}][document]`,
+                    document.document
+                );
+                formData.append(`documents[${documentKey}][type]`, document.type);
+                formData.append(`documents[${documentKey}][name]`, document.name);
+            }
+
+            this.$inertia.post(
+                "/api/purchases/" + this.$page.props.invoice.id + "/add-documents",
+                formData,
+                {
+                    onFinish: () => {
+                        this.$loading.hide();
+                    },
+                }
+            );
+        },
+    },
+};
+</script>

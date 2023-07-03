@@ -1,0 +1,77 @@
+# test deployment: sudo docker-compose down --remove-orphans && sudo UID=1000 docker-compose up --build -d
+# use for development: sudo docker-compose stop && sudo UID=1000 docker-compose up
+# UID: user id of local user owning the current dir
+
+version: "3.7"
+services:
+  postgres:
+    image: postgres:latest
+    container_name: recom-postgres
+    # restart: unless-stopped
+    volumes:
+      - ./:/opt/www
+    environment:
+      - POSTGRES_USER=inventar
+      - POSTGRES_PASSWORD=inventar
+      - POSTGRES_DB=inventar
+    networks:
+      - recom
+
+  php:
+    image: recom
+    container_name: recom-app
+    depends_on:
+      - postgres
+    # restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: docker/Development.Dockerfile
+      args:
+        uid: "1000"
+        user: "recom"
+    #tty: true
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    environment:
+      - DB_PORT=5432
+      - DB_HOST=postgres
+    networks:
+      - recom
+    entrypoint:
+    # scripts need to be executable
+    - docker/init-scripts/composer_start.sh
+
+
+  nginx:
+    image: nginx:alpine
+    container_name: recom-nginx
+    depends_on:
+      - php
+    # restart: unless-stopped
+    ports:
+      - 8001:80
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - recom
+
+  node:
+    image: node:14-alpine
+    container_name: recom-node
+    depends_on:
+      - php
+    # restart: unless-stopped
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+    networks:
+      - recom
+    entrypoint:
+      # scripts need to be executable
+      - docker/init-scripts/node_start.sh
+
+networks:
+  recom:
+    driver: bridge

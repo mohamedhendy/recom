@@ -1,0 +1,16 @@
+/**
+This is Temporary. Once the classes are applied to all elements this will be removed.
+*/
+input {
+    padding: 5px !important;
+}
+
+.field {
+    $b-root: &;
+
+    padding: 5px;
+    position: relative;
+}
+
+@import "field--json-input";
+

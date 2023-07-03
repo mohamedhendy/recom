@@ -1,0 +1,200 @@
+$loginColor: #000;
+$mainColor: #ff9b16;
+$mainColorHover:#c67103;
+.f-page {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (max-width: 991.98px) { 
+        display: block;
+     }
+    .side-img {
+        height: 100%;
+        background-color: #000;
+        display: flex;
+        align-items: center;
+        min-width: 50%;
+        justify-content: center;
+        @media (max-width: 991.98px) { 
+            height: 244px;
+         }
+         img  {
+            @media (max-width: 991.98px) { 
+                height: 80%;
+                object-fit: contain;
+             }
+
+         }
+    }
+    .test-f {
+        height: 100%;
+        width: 100%;
+        transition: 1s all ease-in-out;
+        background-color: transparent;
+        .min-h-screen {
+            background-color: #fff;
+            max-width: 100%;
+            margin: auto;
+            max-height: 100%;
+            min-height: 100%;
+            border-radius: 10px 10px 0 0;
+            overflow: hidden;
+            @media (max-width: 991.98px) { 
+                height: auto;
+                min-height: auto;
+             }
+            .w-16.h-16 {
+                display: none;
+            }
+        }
+        .shadow-md {
+            box-shadow: none !important
+        }
+    }
+    .welcome-title{
+        font-size: 23px;
+        font-weight: bold;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+            width: 31px;
+            margin-left: 10px;
+        }
+    }
+    .or-option {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .or-option hr {
+        flex-grow: 1;
+    }
+    .or-option {
+        span {
+            padding: 5px 10px;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    }
+    .selected-login {
+        .w-blue-color {
+            color: $loginColor;
+        }
+        label {
+           
+            color: $loginColor
+
+        }
+        .log-btn {
+            background-color: #000 !important;
+            border: 1px solid #000;
+            padding: 16px 20px !important;
+            margin: 0;
+            min-width: 100%;
+            text-align: center;
+            justify-content: center;
+            transition: 0.2s all ease-in-out;
+            &:hover {
+                background-color: transparent !important;
+                color: $loginColor !important;
+            }
+        }
+        .forget-pass {
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+            text-decoration: none;
+            font-weight: bold;
+            background-color: #fff;
+            padding: 0 5px;
+        }
+        input {
+            border: 1px solid #ddd;
+            &:focus {
+                border-color: #6875f5;
+                outline: none;
+                box-shadow: none;
+            }
+        }
+        .reg-input {
+            height: 50px !important;
+            padding: 0px 10px !important;
+            &::placeholder {
+                font-size: 13px;
+
+            }
+        }
+    }
+}
+
+/* */
+.datatable__table {
+    thead {
+        tr {
+            th {
+                background-color: #111827;
+                color: #fff;
+            }
+        }
+    }
+}
+.page-content__sidebar {
+    background-color: #111827;
+    color: #111827;
+}
+.page-content__sidebar-list-item-icon {
+    fill: #fff;
+}
+.page-content__sidebar-list-item {
+    color: #FFF;
+}
+.page-content__sidebar-separator , .page-content__sidebar-separator::after{
+    background-color: #ffd967;
+}
+.datatable__header-icon {
+    fill: #fff;
+}
+.page-content__sidebar-list-item {
+    font-weight: 500;
+    &:hover {
+        background-color: $mainColor;
+        color: #fff;
+        
+    }
+}
+.page-header {
+    background-color: $mainColor;
+}
+.page-header__right-list-buttons-area a, .page-header__right-list-buttons-area button {
+    background-color: #ffd967 !important;
+    color: #111827 !important;
+    font-weight: 500;
+}
+.page-header__right-list-buttons-area {
+    a {
+        svg {
+            fill: #111827;
+        }
+    }
+}
+.back-button {
+    font-weight: 500;
+    background-color: #f8f8f8;
+    color: #111827;
+    fill: #111827;
+    &:hover {
+        background-color: $mainColorHover;
+    }
+}
+.page-content__sidebar-list-item {
+    color: #FFF !important;
+}
+.page-content__sidebar--expanded {
+    width: 255px;
+}

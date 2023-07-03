@@ -1,0 +1,12 @@
+$--color-primary: #121927;
+
+/* icon font path, required */
+$--font-path: '../fonts';
+
+@import "../../../node_modules/element-ui/packages/theme-chalk/src/index";
+
+
+.el-input__prefix {
+    left: auto;
+    right: 5px;
+}
